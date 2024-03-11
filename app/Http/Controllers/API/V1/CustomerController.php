@@ -31,13 +31,13 @@ class CustomerController extends Controller
         $includeInvoices = $request->query('includeInvoices');
 
         // Filter customers and return paginated collection
-        $customers = Customer::where($filterItems)->paginate(10);
+        $customers = Customer::where($filterItems);
 
         if ($includeInvoices) {
             $customers = $customers->with('invoices');
         }
 
-        return new CustomerCollection($customers->appends($request->query()));
+        return new CustomerCollection($customers->paginate(10)->appends($request->query()));
     }
 
 
@@ -63,15 +63,24 @@ class CustomerController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified customer resource.
      *
      * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\App\Http\Resources\V1\CustomerResource
      */
+
     public function show(Customer $customer)
     {
+        $includeInvoices = request()->query('includeInvoices');
+
+        if ($includeInvoices) {
+            return new CustomerResource($customer->loadMissing('invoices'));
+        }
+
+        // Add a return statement in case $includeInvoices is false or not set
         return new CustomerResource($customer);
     }
+
 
     /**
      * Show the form for editing the specified resource.

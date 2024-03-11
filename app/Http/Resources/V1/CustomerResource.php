@@ -27,3 +27,4 @@ class CustomerResource extends JsonResource
         ];
     }
 }
+// http://localhost:8000/api/v1/customers?zipCode[lt]=70000&type[eq]=B&includeInvoices=True
