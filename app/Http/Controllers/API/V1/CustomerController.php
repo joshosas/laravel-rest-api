@@ -77,7 +77,6 @@ class CustomerController extends Controller
      *
      * @param  \App\Http\Requests\UpdateCustomerRequest  $request
      * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
@@ -85,7 +84,7 @@ class CustomerController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage. 
      *
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
